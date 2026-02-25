@@ -3,7 +3,7 @@ const BookSchema = require("../schema/book.schema")
 
 const getAllBooks = async (req , res) =>{
     try{
-      const authors = await BookSchema.find()
+      const authors = await BookSchema.find().populate("authorInfo")
 
       res.status(200).json(books)
     }catch(error){
@@ -33,12 +33,13 @@ const getOneBook = async (req , res) =>{
 }
 
 
+
 const addBook = async (req , res) =>{
     try{
 
-        const {title, pages, publishedYear, publishedHome, description, period, genre, imageUrl} = req.body
+        const {title, pages, publishedYear, publishedHome, description, period, genre, imageUrl, authorInfo} = req.body
 
-        await BookSchema.create({title, pages, publishedYear, publishedHome, period, description, genre, imageUrl})
+        await BookSchema.create({title, pages, publishedYear, publishedHome, period, description, genre, imageUrl, authorInfo})
 
         res.status(201).json({
             message : "Added new book"
@@ -53,7 +54,7 @@ const addBook = async (req , res) =>{
 const updateBook = async (req , res) =>{
     try{
 
-         const {title, pages, publishedYear, publishedHome, description, period, genre, imageUrl} = req.body
+         const {title, pages, publishedYear, publishedHome, description, period, genre, imageUrl, authorInfo} = req.body
         const { id } = req.params
 
         const foundedBook = await BookSchema.findById(id)
@@ -62,7 +63,7 @@ const updateBook = async (req , res) =>{
                 message: "Book not found"
             })
         }
-        await BookSchema.findByIdAndUpdate(id, {title, pages, publishedYear, publishedHome, description, period, genre, imageUrl})
+        await BookSchema.findByIdAndUpdate(id, {title, pages, publishedYear, publishedHome, description, period, genre, imageUrl, authorInfo})
 
         res.status(200).json({
             message: "Updated book"

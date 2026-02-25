@@ -22,16 +22,31 @@ const Book = new Schema({
         required: true
     },
     period : {
-        type : String,
-        required: true
+                type : String,
+        required: true,
+        enum: {
+            values:["qadimgi davr", "o'rta asrlar davri", "uyg'onish va klassitsizm davri", "realizm va modernizm davri", "zamonaviy davr"],
+            message: "{VALUE} bunday qiymat qabul qilinmaydi"
+        },
+        set: (value)=>value.trim().toLowerCase()
     },
     genre : {
         type : String,
-        required: true
+        required: true,
+        enum: {
+            values:["Comedy", "Romance", "Thriller", "Horror", "Action","Documentary","Science fiction", "Fantasy"],
+            message: "{VALUE} bunday qiymat qabul qilinmaydi"
+        },
+        trim: true
     },
     imageUrl : {
         type : String,
         required: true
+    },
+    authorInfo: {
+        type: Schema.Types.ObjectId,
+        ref: "author",
+        required : true
     }
 },{
     versionKey: false,

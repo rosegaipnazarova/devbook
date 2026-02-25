@@ -1,19 +1,33 @@
 const AuthorSchema = require("../schema/author.schema")
 
 
-const getAllAuthors = async (req , res) =>{
-    try{
-      const authors = await AuthorSchema.find()
+const getAllAuthors = async (req, res, next) => {
+    try {
+        const authors = await AuthorSchema.find()
 
-      res.status(200).json(authors)
-    }catch(error){
-        return res.status(500).json({message : error.message})
+        res.status(200).json(authors)
+    } catch (error) {
+        next(error)
+    }
+}
+
+const search = async (req, res, next) => {
+    try {
+        const { searchingValue } = req.query
+        const result = await AuthorSchema.find({
+            fullName: { $regex: searchingValue, $options: "i" },
+            birthDate: { $eq: searchingValue }
+        })
+
+        res.status(200).json(authors)
+    } catch (error) {
+        next(error)
     }
 }
 
 
-const getOneAuthor = async (req , res) =>{
-    try{
+const getOneAuthor = async (req, res, next) => {
+    try {
 
         const { id } = req.params
 
@@ -27,33 +41,33 @@ const getOneAuthor = async (req , res) =>{
         res.status(200).json(foundedAuthor)
 
 
-    }catch(error){
-        return res.status(500).json({message : error.message})
+    } catch (error) {
+        next(error)
     }
 }
 
 
-const addAuthor = async (req , res) =>{
-    try{
+const addAuthor = async (req, res, next) => {
+    try {
 
-        const {fullName, birthDate, deathDate, period, bio, work, imageUrl} = req.body
+        const { fullName, birthDate, deathDate, period, bio, work, imageUrl } = req.body
 
-        await AuthorSchema.create({fullName, birthDate, deathDate, bio, work, period, imageUrl})
+        await AuthorSchema.create({ fullName, birthDate, deathDate, bio, work, period, imageUrl })
 
         res.status(201).json({
-            message : "Added new author"
+            message: "Added new author"
         })
 
-    }catch(error){
-        return res.status(500).json({message : error.message})
+    } catch (error) {
+        next(error)
     }
 }
 
 
-const updateAuthor = async (req , res) =>{
-    try{
+const updateAuthor = async (req, res, next) => {
+    try {
 
-         const {fullName, birthDate, deathDate, period, bio, work, imageUrl} = req.body
+        const { fullName, birthDate, deathDate, period, bio, work, imageUrl } = req.body
         const { id } = req.params
 
         const foundedAuthor = await AuthorSchema.findById(id)
@@ -62,20 +76,20 @@ const updateAuthor = async (req , res) =>{
                 message: "Author not found"
             })
         }
-        await AuthorSchema.findByIdAndUpdate(id, {fullName, birthDate, deathDate, bio, work, period, imageUrl})
+        await AuthorSchema.findByIdAndUpdate(id, { fullName, birthDate, deathDate, bio, work, period, imageUrl })
 
         res.status(200).json({
             message: "Updated author"
         })
 
-    }catch(error){
-        return res.status(500).json({message : error.message})
+    } catch (error) {
+        next(error)
     }
 }
 
 
-const deleteAuthor = async (req , res) =>{
-    try{
+const deleteAuthor = async (req, res, next) => {
+    try {
 
         const { id } = req.params
 
@@ -85,14 +99,14 @@ const deleteAuthor = async (req , res) =>{
                 message: "Author not found"
             })
         }
-    await AuthorSchema.findByIdAndDelete(id)
+        await AuthorSchema.findByIdAndDelete(id)
 
         res.status(200).json({
             message: "Deleted author"
         })
 
-    }catch(error){
-        return res.status(500).json({message : error.message})
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -102,5 +116,6 @@ module.exports = {
     getOneAuthor,
     addAuthor,
     updateAuthor,
-    deleteAuthor
+    deleteAuthor,
+    search
 }
