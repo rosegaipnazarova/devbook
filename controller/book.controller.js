@@ -1,3 +1,4 @@
+const CustomErrorhandler = require("../error/custom-error.handle")
 const BookSchema = require("../schema/book.schema")
 
 
@@ -19,9 +20,7 @@ const getOneBook = async (req , res) =>{
 
         const foundedBook = await BookSchema.findById(id)
         if (!foundedBook) {
-            return res.status(404).json({
-                message: "Book not found"
-            })
+            throw CustomErrorhandler.NotFound("Book not found")
         }
 
         res.status(200).json(foundedBook)
