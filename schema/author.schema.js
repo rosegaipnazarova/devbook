@@ -36,7 +36,8 @@ const Author = new Schema({
     work : {
         type : String,
         required: true,
-        validate:{ function (nom) {
+        validate:{ 
+            validator: function (nom) {
             return nom.length>0
         },
         message: "Royhat bosh bolmasliki zarur"

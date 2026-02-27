@@ -3,6 +3,8 @@ const {Schema, model} = require("mongoose")
 const Book = new Schema({
     title : {
         type : String,
+        minLength:3,
+        maxLength:200,
         required: true
     },
     pages : {
