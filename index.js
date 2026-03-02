@@ -4,6 +4,7 @@ const { connect } = require("mongoose")
 const connectDb = require("./config/db.config")
 const authorRouter = require("./router/author.routes")
 const bookRouter = require("./router/book.routes")
+const quoteRouter = require("./router/quote.routes")
 const errorMiddleware = require("./middleware/error.middleware")
 require("dotenv").config()
 
@@ -20,6 +21,7 @@ app.use(cors())
 
 app.use(authorRouter)
 app.use(bookRouter)
+app.use(quoteRouter)
 
 app.use(errorMiddleware)
 

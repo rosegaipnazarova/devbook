@@ -29,7 +29,7 @@ const Auth = new Schema({
         trim: true
     },
     otpTime : {
-        type : Date,
+        type : Number,
         required: true,
         trim: true
     },

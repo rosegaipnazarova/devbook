@@ -20,5 +20,8 @@ module.exports = class CustomErrorhandler extends Error{
         return new CustomErrorhandler(204,message,errors)
     }
     
+    static InternalServerError(message, errors=[]){
+        return new CustomErrorhandler(500,message,errors)
+    }
 
 }

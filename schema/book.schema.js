@@ -1,11 +1,11 @@
 const {Schema, model} = require("mongoose")
 
 const Book = new Schema({
-    title : {
+    text : {
         type : String,
         minLength:3,
         maxLength:200,
-        required: true
+        required: true,
     },
     pages : {
         type : Number,
