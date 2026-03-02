@@ -23,7 +23,7 @@ const search = async (req, res, next) => {
 
         res.status(200).json(quotes)
     } catch (error) {
-        next(error);
+        next(error)
     }
 }
 
@@ -61,7 +61,7 @@ const likeQuote = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-};
+}
 
 const deleteQuote = async (req, res, next) => {
     try {
@@ -72,11 +72,11 @@ const deleteQuote = async (req, res, next) => {
             throw CustomErrorhandler.NotFound("quote not found")
         }
 
-        res.status(200).json({ message: "deleted quote" });
+        res.status(200).json({ message: "deleted quote" })
     } catch (error) {
         next(error)
     }
-};
+}
 
 module.exports = {
     getAllQuotes,
@@ -84,4 +84,4 @@ module.exports = {
     addQuote,
     likeQuote,
     deleteQuote
-};
+}
