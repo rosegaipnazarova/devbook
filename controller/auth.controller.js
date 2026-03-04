@@ -1,4 +1,5 @@
 const CustomErrorhandler = require("../error/custom-error.handle")
+const AuthSchema = require("../schema/auth.schema")
 const AuthorSchema = require("../schema/author.schema")
 const { access_token } = require("../utils/jwt")
 const sendMessage = require("../utils/send-email")
@@ -59,6 +60,8 @@ const verify = async (req, res, next) =>{
 
         const accsessToken = access_token({id: foundedUser._id, role: foundedUser.role, email: foundedUser.email})
         const refreshToken = refresh_token({id: foundedUser._id, role: foundedUser.role, email: foundedUser.email})
+
+        await AuthSchema.findByIdAndUpdate(foundedUser._id,{refreshToken})
 
         res.cookie("refresh_token",
              refreshToken, {

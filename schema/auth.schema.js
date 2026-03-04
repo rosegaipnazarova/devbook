@@ -34,6 +34,10 @@ const Auth = new Schema({
         required: true,
         trim: true
     },
+     refreshToken : {
+        type : String,
+        trim: true
+    },
 },{
     versionKey: false,
     timestamps: true
