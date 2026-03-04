@@ -1,3 +1,4 @@
+const { string } = require("joi")
 const {Schema, model} = require("mongoose")
 
 const Auth = new Schema({
@@ -10,7 +11,7 @@ const Auth = new Schema({
         match: /^[a-zA-Z\s]+$/
     },
     email : {
-        type : Date,
+        type : String,
         required: true
     },
     password : {

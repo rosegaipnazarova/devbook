@@ -7,7 +7,7 @@ async function sendMessage(code, email) {
             service: "gmail",
             auth:{
                 user:"rosegaipnazarova@gmail.com",
-                pass: process.env.GOOGLE_PASS
+                pass: process.env.GOOGLE_PASS 
             }
         })
 
@@ -15,7 +15,8 @@ async function sendMessage(code, email) {
             subject: "Lesson",
             from:"rosegaipnazarova@gmail.com" ,
             to:email,
-            text:`
+
+            html:`
             <!DOCTYPE html>
 <html lang="uz">
 <head>
