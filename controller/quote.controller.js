@@ -15,7 +15,7 @@ const search = async (req, res, next) => {
     try {
         const { searchingValue } = req.query
 
-        const result = await QuoteSchema.find({
+        const quotes = await QuoteSchema.find({
             text: { $regex: searchingValue, $options: "i" } 
         })
         .populate("authorId", "fullName")

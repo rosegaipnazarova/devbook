@@ -1,7 +1,7 @@
 const { Router } = require("express")
 
 const quoteValidatorMiddleware = require("../middleware/quote.validator.middleware")
-const { getAllQuotes, addQuote, likeQuote, deleteQuote } = require("../controller/quote.controller")
+const { getAllQuotes, addQuote, likeQuote, deleteQuote, search } = require("../controller/quote.controller")
 
 const quoteRouter = Router()
 
