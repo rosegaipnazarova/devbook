@@ -110,8 +110,32 @@ const login = async (req, res, next) =>{
     }
 }
 
+
+
+const logout = async (req, res, next) =>{
+    try{
+        const foundedUser = await AuthorSchema.findOne({email: req["user"].email})
+
+        if(!foundedUser){
+            throw CustomErrorhandler.BadRequest("User not found")
+        }
+
+        res.clearCookie("refresk_token")
+
+      await AuthorSchema.findByIdAndUpdate(foundedUser._id,{
+        refreshToken: ""
+      })
+
+        res.status(200).json({message: "please check your email"})
+    
+    }catch(error){
+        next(error)
+    }
+}
+
 module.exports ={
     register,
     verify,
-    login
+    login,
+    logout
 }
